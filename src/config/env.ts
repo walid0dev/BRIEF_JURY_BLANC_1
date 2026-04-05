@@ -17,7 +17,7 @@ const envSchema = Joi.object<Env>({
     PORT: Joi.number().default(3000),
     MONGO_URI: Joi.string().uri().required(),
     MONGO_DB_NAME: Joi.string().required(),
-    JWT_SECRET: Joi.string().required(),
+    JWT_SECRET: Joi.string().min(32).required(),
     JWT_EXPIRES_IN: Joi.string().default("1d"),
 });
 function loadEnv() {

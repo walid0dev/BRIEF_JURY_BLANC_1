@@ -1,18 +1,16 @@
 import { ConflictError, AppError } from "@/utils/errors.ts";
 import userModel from "./model.ts";
 import type {
-  User,
+  IUser, IUserDocument,
+  CreateUserDTO,
   UserPublic,
-  UserDocument,
 } from "@/shared/interfaces/user.interfaces.ts";
 import type { Model, QueryFilter } from "mongoose";
 import { hashPassword } from "@utils/password.ts";
 class UserRepository {
-  constructor(private model: Model<User>) {
-    this.model = model;
-  }
+  constructor(private model: Model<IUser>) {}
 
-  toSafeUser(user: UserDocument): UserPublic {
+  toSafeUser(user: IUserDocument): UserPublic {
     return {
       id: user._id.toString(),
       name: user.name,
@@ -22,16 +20,27 @@ class UserRepository {
   }
 
   async getUser(
-    filter: QueryFilter<User>,
+    filter: QueryFilter<IUser>,
+  ): Promise<UserPublic | null>;
+  async getUser(
+    filter: QueryFilter<IUser>,
+    params: { safe: true },
+  ): Promise<UserPublic | null>;
+  async getUser(
+    filter: QueryFilter<IUser>,
+    params: { safe: false },
+  ): Promise<IUserDocument | null>;
+  async getUser(
+    filter: QueryFilter<IUser>,
     params: { safe: boolean } = { safe: true },
-  ): Promise<UserPublic | UserDocument | null> {
+  ): Promise<UserPublic | IUserDocument | null> {
     const user = await this.model.findOne(filter).exec();
     if (!user) return null;
     return params.safe ? this.toSafeUser(user) : user;
   }
 
-  async createUser(user: User) {
-    const exists = await this.getUser(user);
+  async createUser(user: CreateUserDTO): Promise<UserPublic> {
+    const exists = await this.getUser({ email: user.email });
     if (exists) throw new ConflictError("User already exists");
     const hashedPassword = await hashPassword(user.password);
     const created = await this.model.create({

@@ -4,24 +4,23 @@ import { comparePassword } from "@utils/password.ts";
 import { generateToken } from "@utils/jwt.ts";
 
 import type {
-  User,
+  CreateUserDTO,
   LoginRequest,
   AuthResponse,
-  UserDocument,
+  UserPublic,
 } from "@shared/interfaces/user.interfaces.ts";
-const register = async (user: User) => {
+const register = async (user: CreateUserDTO): Promise<UserPublic> => {
   const created = userRepository.createUser(user);
   return created;
 };
 
 const login = async (request: LoginRequest): Promise<AuthResponse> => {
-  let user = await userRepository.getUser({ request }, { safe: false });
+  const user = await userRepository.getUser({ email: request.email }, { safe: false });
   if (!user) throw new NotFoundError("user not found");
-  user = user as UserDocument;
   const match = await comparePassword(request.password, user.password);
   if (!match) throw new NotFoundError("invalid credentials");
-  const token = generateToken({ id: user._id, name: user.name , role: user.role });
-  return { token , user:userRepository.toSafeUser(user) };
+  const token = generateToken({ id: user._id.toString(), name: user.name, role: user.role });
+  return { token, user: userRepository.toSafeUser(user) };
 };
 
 export default { register, login };

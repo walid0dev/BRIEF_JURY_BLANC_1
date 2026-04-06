@@ -1,7 +1,7 @@
-import type { User } from "@/shared/interfaces/user.interfaces.ts";
+import type { IUser } from "@/shared/interfaces/user.interfaces.ts";
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema<User>(
+const userSchema = new Schema<IUser>(
   {
     name: {
       type: String,

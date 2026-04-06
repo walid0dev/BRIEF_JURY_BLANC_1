@@ -1,21 +1,20 @@
-import type { Document, SchemaTimestampsConfig } from "mongoose";
+import type { HydratedDocument, Types } from "mongoose";
 export type UserRole = "client" | "admin";
 
-export interface User {
-  id?: string;
+export interface IUser {
+  _id: Types.ObjectId;
   name: string;
   email: string;
   password: string;
   role: UserRole;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export type UserDocument = User & Document & SchemaTimestampsConfig;
-export interface UserPublic {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-}
+export type IUserDocument = HydratedDocument<IUser>;
+export type CreateUserDTO = Omit<IUser, "_id" | "createdAt" | "updatedAt"> & { password: string };
+export type UpdateUserDTO = Partial<CreateUserDTO>;
+export type UserPublic = Omit<IUser, "password" | "createdAt" | "updatedAt" | "_id"> & { id: string };
 
 export interface LoginRequest {
   email: string;
@@ -26,6 +25,8 @@ export interface AuthResponse {
   token: string;
   user: UserPublic;
 }
+
+
 
 export interface JwtUserPayload {
   id: string;

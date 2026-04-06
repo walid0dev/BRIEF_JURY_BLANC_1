@@ -3,7 +3,7 @@
 
 # Diagrams
 ## Classes
-![](./assets/class_diagram.svg)
+![](./assets/class_diagram_2.svg)
 
 ## use cases
 ![](./assets/use_case_diagram.svg)

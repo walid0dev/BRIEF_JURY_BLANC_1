@@ -1,11 +1,11 @@
-import express  , {type Express} from 'express';
+import express, { type Express } from 'express';
 import env from './config/env.ts';
 import morgan from 'morgan';
 import { globalErrorHandler } from '@shared/middlewares/global.ts';
 import { NotFoundError } from '@utils/errors.ts';
 import { connectDB } from '@config/db.ts';
 
-const server : Express = express();
+const server: Express = express();
 
 
 if (env.NODE_ENV === 'development') {
@@ -28,8 +28,8 @@ server.use((_, __, next) => {
 server.use(globalErrorHandler)
 
 server.listen(env.PORT, async () => {
-    await connectDB();
-    console.log(`Server running on port ${env.PORT} in ${env.NODE_ENV} mode`);
+  await connectDB();
+  console.log(`Server running on port ${env.PORT} in ${env.NODE_ENV} mode`);
 });
 
 

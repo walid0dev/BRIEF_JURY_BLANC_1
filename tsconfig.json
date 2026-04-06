@@ -23,13 +23,13 @@
     "noEmit": true,
 
     // imports
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@modules/*": ["src/modules/*"],
-      "@shared/*": ["src/shared/*"],
-      "@utils/*": ["src/utils/*"],
-      "@config/*": ["src/config/*"],
+      "@/*": ["./src/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@config/*": ["./src/config/*"],
+      "@types/*": ["./src/types/*"]
     },
 
     // Stricter Typechecking Options
@@ -39,7 +39,6 @@
     // Style Options
     "noImplicitReturns": true,
     "noImplicitOverride": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -51,7 +50,7 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules"]

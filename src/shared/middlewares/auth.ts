@@ -4,7 +4,7 @@ import { UnauthorizedError } from "@utils/errors.js";
 
 export const authenticate = async (
   req: Request,
-  res: Response,
+  _: Response,
   next: NextFunction,
 ) => {
   const token = req.token;
@@ -16,8 +16,9 @@ export const authenticate = async (
 };
 
 export const authorize = (roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user;
+  return (req: Request, _: Response, next: NextFunction) => {
+    const user = req.user ;
+    if (!user) throw new UnauthorizedError("User not authenticated");
     if (!roles.includes(user.role))
       return next(new UnauthorizedError("User not authorized"));
     next();
@@ -25,9 +26,9 @@ export const authorize = (roles: string[]) => {
 };
 
 
-export const requireToken = (req: Request, res: Response, next: NextFunction) => {
+export const requireToken = (req: Request, _: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(" ")[1];
-  if (!token) return next(new UnauthorizedError("No token provided"));
+  if (!token) throw new UnauthorizedError("No token provided")
   Object.assign(req, { token });
   next();
 };

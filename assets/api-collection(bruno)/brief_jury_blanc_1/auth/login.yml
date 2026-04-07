@@ -1,0 +1,23 @@
+info:
+  name: login
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{URL}}login"
+  body:
+    type: json
+    data: "{{user_login}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: user_login
+      value: '{"email": "Arely.Zboncak@yahoo.com", "password":"12345678"}'
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

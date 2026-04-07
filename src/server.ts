@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import { globalErrorHandler } from '@shared/middlewares/global.ts';
 import { NotFoundError } from '@utils/errors.ts';
 import { connectDB } from '@config/db.ts';
-
+import authRoutes from '@modules/auth/routes.ts';
 const server: Express = express();
 
 
@@ -13,6 +13,8 @@ if (env.NODE_ENV === 'development') {
 }
 server.use(express.json());
 
+
+server.use('/api/auth', authRoutes);
 
 
 server.get('/health', (_, res) => {

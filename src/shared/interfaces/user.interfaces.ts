@@ -12,9 +12,15 @@ export interface IUser {
 }
 
 export type IUserDocument = HydratedDocument<IUser>;
-export type CreateUserDTO = Omit<IUser, "_id" | "createdAt" | "updatedAt"> & { password: string };
+export type CreateUserDTO = Omit<
+  IUser,
+  "_id" | "createdAt" | "updatedAt" | "role"
+> & { password: string };
 export type UpdateUserDTO = Partial<CreateUserDTO>;
-export type UserPublic = Omit<IUser, "password" | "createdAt" | "updatedAt" | "_id"> & { id: string };
+export type UserPublic = Omit<
+  IUser,
+  "password" | "createdAt" | "updatedAt" | "_id"
+> & { id: string };
 
 export interface LoginRequest {
   email: string;
@@ -26,10 +32,10 @@ export interface AuthResponse {
   user: UserPublic;
 }
 
-
-
 export interface JwtUserPayload {
   id: string;
   name: string;
   role: UserRole;
+  iat: number;
+  exp: number;
 }

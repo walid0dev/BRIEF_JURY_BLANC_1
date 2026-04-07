@@ -21,6 +21,7 @@ export default [
           selector: "variable",
           format: ["camelCase"],
         },
+      
       ],
     },
   },

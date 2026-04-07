@@ -1,12 +1,6 @@
-import { verifyToken } from "@utils/jwt.ts";
-import type { Request, Response, NextFunction } from "express";
-import { UnauthorizedError } from "@utils/errors.js";
-
-export const authenticate = async (
-  req: Request,
-  _: Response,
-  next: NextFunction,
-) => {
+import { verifyToken } from "../../utils/jwt.js";
+import { UnauthorizedError } from "../../utils/errors.js";
+const authenticate = async (req, _, next) => {
   const token = req.token;
   if (!token) throw new UnauthorizedError("No token provided");
   const decoded = verifyToken(token);
@@ -14,22 +8,23 @@ export const authenticate = async (
   Object.assign(req, { user: decoded });
   next();
 };
-
-export const authorize = (roles: string[]) => {
-  return (req: Request, _: Response, next: NextFunction) => {
-    const user = req.user ;
+const authorize = (roles) => {
+  return (req, _, next) => {
+    const user = req.user;
     if (!user) throw new UnauthorizedError("User not authenticated");
     if (!roles.includes(user.role))
       return next(new UnauthorizedError("User not authorized"));
     next();
   };
 };
-
-
-export const requireToken = (req: Request, _: Response, next: NextFunction) => {
+const requireToken = (req, _, next) => {
   const token = req.headers.authorization?.split(" ")[1];
-  if (!token) throw new UnauthorizedError("No token provided")
+  if (!token) throw new UnauthorizedError("No token provided");
   Object.assign(req, { token });
   next();
 };
-
+export {
+  authenticate,
+  authorize,
+  requireToken
+};

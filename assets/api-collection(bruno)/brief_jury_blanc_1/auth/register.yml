@@ -4,8 +4,17 @@ info:
   seq: 2
 
 http:
-  method: GET
-  url: "{{URL}}"
+  method: POST
+  url: "{{URL}}register"
+  body:
+    type: json
+    data: |-
+      {
+        "name":"{{$randomFullName}}",
+        "email":"{{$randomEmail}}",
+        "password":"12345678",
+        "password_confirmation":"12345678"
+      }
   auth: inherit
 
 settings:

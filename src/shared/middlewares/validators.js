@@ -1,5 +1,4 @@
 import { ValidationError } from "../../utils/errors.js";
-import {} from "joi";
 import catchAsync from "../../utils/catchAsync.js";
 const validateBody = (schema) => catchAsync(async (req, _, next) => {
   const { error, value } = schema.validate(req.body || {}, { abortEarly: false });

@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 *.ts
 *.d.ts
+types
+interfaces

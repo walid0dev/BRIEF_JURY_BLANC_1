@@ -4,6 +4,4 @@ const catchAsync = (fn) => {
   };
 };
 var catchAsync_default = catchAsync;
-export {
-  catchAsync_default as default
-};
+export default catchAsync

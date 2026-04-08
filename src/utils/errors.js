@@ -8,7 +8,7 @@ const ERROR_CODES = {
   CONFLICT: "CONFLICT"
 };
 const formatValidationDetails = (input) => {
-  if (!input) return void 0;
+  if (!input) return undefined;
   const details = Array.isArray(input) ? input : input.details ?? [];
   return details.map((detail) => `${detail.path.join(".")}: ${detail.message}`);
 };
@@ -24,7 +24,7 @@ class AppError extends Error {
     this.status = "error";
     this.code = code;
     this.message = message;
-    if (errors !== void 0) this.errors = errors;
+    if (errors !== undefined) this.errors = errors;
   }
 }
 class NotFoundError extends AppError {
@@ -41,7 +41,7 @@ class ValidationError extends AppError {
   constructor(message = "Validation error", details) {
     const formattedErrors = formatValidationDetails(details);
     super(422, ERROR_CODES.VALIDATION_ERROR, message, formattedErrors);
-    if (formattedErrors !== void 0) this.errors = formattedErrors;
+    if (formattedErrors !== undefined) this.errors = formattedErrors;
   }
 }
 class UnauthorizedError extends AppError {

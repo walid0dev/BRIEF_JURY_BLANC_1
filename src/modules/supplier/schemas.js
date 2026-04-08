@@ -15,5 +15,3 @@ export const updateSupplierSchema = Joi.object({
 	address: Joi.string(),
 	contact: Joi.string(),
 }).min(1);
-
-

@@ -9,7 +9,7 @@ const getAllSuppliers = catchAsync(async (req, res) => {
 
 const getSupplierById = catchAsync(async (req, res) => {
   const supplier = await supplierRepo.findById(req.params.id);
-  if (!supplier || supplier.userId.toString() !== req.user.id) {
+  if (!supplier) {
     throw new NotFoundError("Supplier not found");
   }
   sendResponse(res, 200, supplierRepo.toSafeDocument(supplier));

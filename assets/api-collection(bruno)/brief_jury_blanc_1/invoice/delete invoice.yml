@@ -4,7 +4,7 @@ info:
   seq: 5
 
 http:
-  method: GET
+  method: DELETE
   url: "{{URL}}69d66d176cfce68d76d6fe40"
   auth: inherit
 

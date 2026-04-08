@@ -12,7 +12,8 @@ http:
       {
         "supplierId":"69d64d51f2888daab91385e0",
         "amount":100,
-        "dueDate":"{{$randomDateFuture}}"
+        "dueDate":"{{$randomDateFuture}}",
+        "description":"test"
       }
   auth: inherit
 

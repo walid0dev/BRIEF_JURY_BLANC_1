@@ -8,7 +8,7 @@ import { createInvoiceSchema, getInvoicesFilterQuerySchema } from "./schemas.js"
 import invoiceControllers from "./controllers.js";
 import { objectIdParamSchema } from "../../utils/validators.js";
 import { requireToken , authenticate } from "../../shared/middlewares/auth.js";
-
+import paymentRoutes from "../payment/routes.js";
 const router = Router();
 
 router.use(requireToken, authenticate);
@@ -26,6 +26,8 @@ router.post("/", validateBody(createInvoiceSchema), invoiceControllers.createInv
 router.put("/:id", validateParams(objectIdParamSchema), validateBody(createInvoiceSchema), invoiceControllers.updateInvoice);
 
 router.delete("/:id", validateParams(objectIdParamSchema), invoiceControllers.deleteInvoice);
+
+router.use("/", paymentRoutes);
 
 
 

@@ -1,0 +1,15 @@
+info:
+  name: GET invoices
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{URL}}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

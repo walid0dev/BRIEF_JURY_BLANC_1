@@ -13,6 +13,11 @@ const findAllSuppliers = async (userId) => {
     return suppliers;
 };
 
+const supplierExists = async (id) => {
+    if (!isObjectIdOrHexString(id)) throw new BadRequestError("Invalid supplier ID");
+    const exists = await Supplier.exists({ _id: id });
+    return exists;
+};
 const findById = async (id, userId) => {
     if (!isObjectIdOrHexString(id)) throw new BadRequestError("Invalid supplier ID");
     const [supplier] = await Supplier
@@ -64,5 +69,6 @@ export default {
     findById,
     updateSupplier,
     deleteSupplier,
-    toSafeDocument
+    toSafeDocument,
+    supplierExists
 };

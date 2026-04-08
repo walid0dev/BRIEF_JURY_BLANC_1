@@ -1,0 +1,23 @@
+info:
+  name: Create invoice
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{URL}}"
+  body:
+    type: json
+    data: |-
+      {
+        "supplierId":"69d64d51f2888daab91385e0",
+        "amount":100,
+        "dueDate":"{{$randomDateFuture}}"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -10,7 +10,6 @@ export const createInvoiceSchema = Joi.object({
     amount: Joi.number().positive().required(),
     dueDate: Joi.date().iso().required(),
     description: Joi.string().max(254).optional(),
-    status: Joi.string().valid("paid", "partially_paid", "unpaid").optional()
 });
 
 
@@ -23,3 +22,14 @@ export const updateInvoiceSchema = Joi.object({
 }).min(1); 
 
 
+export const getInvoicesFilterQuerySchema = Joi.object({
+    supplierId: Joi.string().custom((value, helpers) => {
+        if (!isObjectIdOrHexString(value)) {    
+            return helpers.error('any.invalid');
+        }
+        return value;
+    }).optional(),
+    status: Joi.string().valid("paid", "partially_paid", "unpaid").optional(),
+    page: Joi.number().integer().positive().optional().default(1),
+    limit: Joi.number().integer().positive().optional().default(15),
+}).with('page', 'limit');

@@ -13,7 +13,14 @@ const validateQuery = (schema) => catchAsync(async (req, _, next) => {
   if (error) {
     throw new ValidationError("Invalid query parameters", error);
   }
-  Object.assign(req, { query: value });
+  Object.defineProperties(req, {
+    query: {
+      value,
+      writable: true,
+      enumerable: true,
+      configurable: true,
+    },
+  });
   next();
 });
 const validateParams = (schema) => catchAsync(async (req, _, next) => {

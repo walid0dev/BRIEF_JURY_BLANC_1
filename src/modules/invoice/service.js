@@ -1,4 +1,4 @@
-import { AppError, ConflictError, NotFoundError } from "../../utils/errors.js";
+import { AppError, ConflictError, NotFoundError , BadRequestError} from "../../utils/errors.js";
 import { Types } from "mongoose";
 import Invoice from "./model.js";
 import supplierService from "../supplier/service.js";
@@ -21,6 +21,10 @@ const updateInvoice = async (id, data) => {
     const invoice = await Invoice.findById(id);
     if (!invoice) throw new NotFoundError("Invoice not found");
     if (invoice.status === "paid") throw new ConflictError("Cannot update a paid invoice");
+    
+    const { supplierId } = data;
+    const supplier = await supplierService.supplierExists(supplierId);
+    if (!supplier) throw new BadRequestError("Supplier not found");
     Object.assign(invoice, data);
     await invoice.save();
     return invoice;
@@ -55,15 +59,26 @@ const getInvoices = async (userId) => {
                         $subtract: ["$amount", { $sum: "$payments.amount" }]
                     }
                 }
-            }
+            },
+            { $project: { supplier: 0, payments: 0 } } 
         ])
         .exec();
     return invoices;
+};
+
+const deleteInvoice = async (id) => {
+    const invoice = await Invoice.findById(id);
+    if (!invoice) throw new NotFoundError("Invoice not found");
+    if (invoice.status === "paid") throw new ConflictError("Cannot delete a paid invoice");
+    const deleted =  invoice.deleteOne();
+    if (!deleted) throw new AppError("Failed to delete invoice", 500);
+    return deleted
 };
 
 export default {
     createInvoice,
     getInvoices,
     findById,
-    updateInvoice
+    updateInvoice,
+    deleteInvoice,
 };

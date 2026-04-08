@@ -5,7 +5,11 @@ import { validateBody, validateParams } from "../../shared/middlewares/validator
 import supplierControllers from "./controllers.js";
 import { objectIdParamSchema } from "../../utils/validators.js";
 
+
 const router = Router();
+
+router.use(requireToken, authenticate);
+
 router.use(requireToken, authenticate);
 router.get("/", supplierControllers.getAllSuppliers);
 router.get("/:id",

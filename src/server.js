@@ -6,6 +6,7 @@ import { NotFoundError } from "./utils/errors.js";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./modules/auth/routes.js";
 import supplierRoutes from "./modules/supplier/routes.js";
+import invoiceRoutes from "./modules/invoice/routes.js";
 const server = express();
 if (env.NODE_ENV === "development") {
   server.use(morgan("dev"));
@@ -13,6 +14,7 @@ if (env.NODE_ENV === "development") {
 server.use(express.json());
 server.use("/api/auth", authRoutes);
 server.use("/api/suppliers", supplierRoutes);
+server.use("/api/invoices", invoiceRoutes);
 server.get("/health", (_, res) => {
   res.status(200).json({ status: "ok" });
 });

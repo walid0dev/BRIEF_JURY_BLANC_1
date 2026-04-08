@@ -1,0 +1,30 @@
+info:
+  name: update supplier
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{URL}}{{supplierId}}"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Acme Supply Co Updated",
+        "email": "supplier.updated@example.com",
+        "phone": "+1 555 0101",
+        "address": "456 Market Street",
+        "contact": "John Doe"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: supplierId
+      value: 69d61450050361bf9e9b0a31
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

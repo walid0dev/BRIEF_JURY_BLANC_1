@@ -1,7 +1,7 @@
-import supplierRepo from "./repo";
-import { BadRequestError, NotFoundError } from "../../utils/errors";
-import catchAsync from "../../utils/catchAsync";
-import { sendResponse } from "../../utils/response";
+import supplierRepo from "./repo.js";
+import { BadRequestError, NotFoundError } from "../../utils/errors.js";
+import catchAsync from "../../utils/catchAsync.js";
+import { sendResponse } from "../../utils/response.js";
 const getAllSuppliers = catchAsync(async (req, res) => {
   const suppliers = await supplierRepo.findAll(req.user.id);
   sendResponse(res, 200, suppliers.map(supplierRepo.toSafeDocument));

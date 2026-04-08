@@ -1,9 +1,10 @@
-const { Router } = require("express");
+import { Router } from "express";
 import { createSupplierSchema, updateSupplierSchema } from "./schemas.js";
 import { authenticate, requireToken } from "../../shared/middlewares/auth.js";
 import { validateBody } from "../../shared/middlewares/validators.js";
 import supplierControllers from "./controllers.js";
 
+const router = Router();
 router.use(requireToken, authenticate);
 router.get("/", supplierControllers.getAllSuppliers);
 router.get("/:id", supplierControllers.getSupplierById);
@@ -19,5 +20,4 @@ router.put(
 );
 router.delete("/:id", supplierControllers.deleteSupplier);
 
-const router = Router();
 export default router;

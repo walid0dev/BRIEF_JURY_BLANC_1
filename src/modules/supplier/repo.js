@@ -9,23 +9,39 @@ class SupplierRepo {
     }
 
     async findAll(userId = "") {
-        return await this.model.find({ userId });
+        const suppliers = await this.model.find({ userId });
+        return suppliers;
     }
 
-    async findById(id) {    
-        return await this.model.findById(id);
+    async findById(id) {
+        if (!Types.ObjectId.isValid(supplierId)) throw new BadRequestError("Invalid supplier ID");
+        const supplier = await this.model
+            .aggregate()
+            .match({ _id: new Types.ObjectId(id) })
+            .lookup({
+                from: "invoices",
+                localField: "_id",
+                foreignField: "supplierId",
+                as: "invoices"
+            })
+            .addFields({
+                invoiceCount: { $size: "$invoices" }
+            })
+            .exec();
     }
 
     async update(id, data) {
-        return await this.model.findByIdAndUpdate(id, data, { new: true  ,runValidators: true });
+        return await this.model.findByIdAndUpdate(id, data, { new: true, runValidators: true });
     }
 
     async delete(id) {
         return await this.model.findByIdAndDelete(id);
     }
 
+
+
     toSafeDocument(supplier) {
-        const { _id, name, contact, email, phone, address , createdAt } = supplier;
+        const { _id, name, contact, email, phone, address, createdAt } = supplier;
         return { id: _id, name, contact, email, phone, address, createdAt };
     }
 

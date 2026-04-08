@@ -10,7 +10,7 @@ class SupplierRepo {
         return await this.model.find({ userId });
     }
 
-    async findById(id) {
+    async findById(id) {    
         return await this.model.findById(id);
     }
 

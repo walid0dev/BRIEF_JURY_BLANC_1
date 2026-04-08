@@ -5,12 +5,14 @@ import { globalErrorHandler } from "./shared/middlewares/global.js";
 import { NotFoundError } from "./utils/errors.js";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./modules/auth/routes.js";
+import supplierRoutes from "./modules/supplier/routes.js";
 const server = express();
 if (env.NODE_ENV === "development") {
   server.use(morgan("dev"));
 }
 server.use(express.json());
 server.use("/api/auth", authRoutes);
+server.use("/api/suppliers", supplierRoutes);
 server.get("/health", (_, res) => {
   res.status(200).json({ status: "ok" });
 });

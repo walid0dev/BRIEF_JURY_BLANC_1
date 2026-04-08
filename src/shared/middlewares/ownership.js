@@ -4,7 +4,7 @@ import {UnauthorizedError , NotFoundError , ForbiddenError, BadRequestError} fro
 // a factory function to create ownership check middleware for different models and configurations
 const createOwnershipChecker = (model, {resourceKey ,ownerKey , attachToRequest , requestPropName}) =>
   catchAsync(async (req, _, next) => {
-  const resourceId = req[resourceKey]
+  const resourceId = req.params[resourceKey]
   if(!resourceId) throw new BadRequestError(`Resource ID not found in request at key: ${resourceKey}`)
   if(!req.user || !req.user.id) throw new UnauthorizedError("Unauthorized access")
 

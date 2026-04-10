@@ -10,7 +10,7 @@ http:
     type: json
     data: |-
       {
-        "supplierId":"69d64d51f2888daab91385e0",
+        "supplierId":"69d902f8d02789c08b0d1a76",
         "amount":100,
         "dueDate":"{{$randomDateFuture}}",
         "description":"test"

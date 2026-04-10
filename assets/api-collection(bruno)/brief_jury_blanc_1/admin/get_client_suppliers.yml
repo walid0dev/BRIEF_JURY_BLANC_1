@@ -1,0 +1,11 @@
+info:
+  name: Get Client Suppliers
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{url}}/admin/clients/:id/suppliers"
+  auth:
+    type: bearer
+    token: "{{token}}"

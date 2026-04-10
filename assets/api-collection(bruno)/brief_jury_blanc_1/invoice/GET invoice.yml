@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{URL}}69d66da8db09a21dd1d1b9ca"
+  url: "{{URL}}69d90826d4e74255415999b2"
   auth: inherit
 
 settings:

@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: "{{URL}}{{supplier_id}}"
+  url: "{{URL}}69d902f8d02789c08b0d1a76"
   auth: inherit
 
 runtime:

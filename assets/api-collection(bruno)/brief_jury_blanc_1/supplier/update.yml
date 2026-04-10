@@ -14,14 +14,14 @@ http:
         "email": "supplier.updated@example.com",
         "phone": "+1 555 0101",
         "address": "456 Market Street",
-        "contact": "John Doe"
+        "contact": "Jane Doe"
       }
   auth: inherit
 
 runtime:
   variables:
     - name: supplierId
-      value: 69d61450050361bf9e9b0a31
+      value: 69d64d51f2888daab91385e0
 
 settings:
   encodeUrl: true

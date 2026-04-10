@@ -15,7 +15,7 @@ server.use(express.json());
 server.use("/api/auth", authRoutes);
 server.use("/api/suppliers", supplierRoutes);
 server.use("/api/invoices", invoiceRoutes);
-server.get("/health", (_, res) => {
+server.get("/api/health", (_, res) => {
   res.status(200).json({ status: "ok" });
 });
 server.use((_, __, next) => {

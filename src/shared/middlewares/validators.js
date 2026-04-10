@@ -2,9 +2,11 @@ import { ValidationError } from "../../utils/errors.js";
 import catchAsync from "../../utils/catchAsync.js";
 const validateBody = (schema) => catchAsync(async (req, _, next) => {
   const { error, value } = schema.validate(req.body || {}, { abortEarly: false });
+  console.log(value);
   if (error) {
     throw new ValidationError("Invalid request body", error);
   }
+  
   Object.assign(req, { body: value });
   next();
 });

@@ -1,0 +1,10 @@
+info:
+  name: payment
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit
+  variables:
+    - name: url
+      value: "{{BASE_URL}}invoices/"

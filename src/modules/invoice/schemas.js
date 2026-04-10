@@ -3,7 +3,12 @@ import {isObjectIdOrHexString} from "mongoose"
 import { objectIdParamSchema } from "../../utils/validators.js";
 
 export const createInvoiceSchema = Joi.object({
-    supplierId: objectIdParamSchema,
+    supplierId: Joi.string().custom((value, helpers) => {
+        if (!isObjectIdOrHexString(value)) {
+            return helpers.error("any.invalid");
+        }
+        return value;
+    }).required(),
     amount: Joi.number().positive().required(),
     dueDate: Joi.date().iso().required(),
     description: Joi.string().max(254).optional(),

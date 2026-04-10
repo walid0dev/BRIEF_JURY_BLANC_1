@@ -1,17 +1,17 @@
 info:
-  name: get supplier by id
+  name: get invoice payments
   type: http
-  seq: 2
+  seq: 1
 
 http:
   method: GET
-  url: "{{URL}}{{supplier_id}}"
+  url: "{{url}}{{invoiceId}}/payments"
   auth: inherit
 
 runtime:
   variables:
-    - name: supplier_id
-      value: 69d64d51f2888daab91385e0
+    - name: invoiceId
+      value: 69d90826d4e74255415999b2
 
 settings:
   encodeUrl: true

@@ -5,12 +5,11 @@ info:
 
 http:
   method: PUT
-  url: "{{URL}}69d6727bdb09a21dd1d1b9ce"
+  url: "{{URL}}69d66da5db09a21dd1d1b9c8"
   body:
     type: json
     data: |-
       {
-        "supplierId":"69d64d51f2888daab91385e0",
         "amount":{{$randomInt}},
         "dueDate":"{{$randomDateFuture}}"
       }

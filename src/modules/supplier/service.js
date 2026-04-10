@@ -41,7 +41,7 @@ const findById = async (id, userId) => {
 const updateSupplier = async (id, data, userId) => {
     if (!isObjectIdOrHexString(id)) throw new BadRequestError("Invalid supplier ID");
     const supplier = await Supplier.findById(id);
-    if (!supplier) throw new BadRequestError("Supplier not found");
+    if (!supplier) throw new NotFoundError("Supplier not found");
     if (!supplier.userId.equals(userId)) throw new UnauthorizedError("Unauthorized access to supplier");
     Object.assign(supplier, data);
     await supplier.save();

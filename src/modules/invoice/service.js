@@ -21,10 +21,6 @@ const updateInvoice = async (id, data) => {
     const invoice = await Invoice.findById(id);
     if (!invoice) throw new NotFoundError("Invoice not found");
     if (invoice.status === "paid") throw new ConflictError("Cannot update a paid invoice");
-    
-    const { supplierId } = data;
-    const supplier = await supplierService.supplierExists(supplierId);
-    if (!supplier) throw new BadRequestError("Supplier not found");
     Object.assign(invoice, data);
     await invoice.save();
     return invoice;
@@ -74,6 +70,8 @@ const deleteInvoice = async (id) => {
     if (!deleted) throw new AppError("Failed to delete invoice", 500);
     return deleted
 };
+
+
 
 export default {
     createInvoice,

@@ -7,6 +7,8 @@ import { connectDB } from "./config/db.js";
 import authRoutes from "./modules/auth/routes.js";
 import supplierRoutes from "./modules/supplier/routes.js";
 import invoiceRoutes from "./modules/invoice/routes.js";
+import paymentRoutes from "./modules/payment/routes.js";
+import adminRoutes from "./modules/admin/routes.js";
 const server = express();
 if (env.NODE_ENV === "development") {
   server.use(morgan("dev"));
@@ -15,6 +17,9 @@ server.use(express.json());
 server.use("/api/auth", authRoutes);
 server.use("/api/suppliers", supplierRoutes);
 server.use("/api/invoices", invoiceRoutes);
+server.use("/api/payments", paymentRoutes);
+server.use("/api/admin", adminRoutes);
+
 server.get("/api/health", (_, res) => {
   res.status(200).json({ status: "ok" });
 });

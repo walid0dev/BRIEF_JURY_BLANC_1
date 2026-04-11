@@ -1,4 +1,4 @@
-import express, {} from "express";
+import express from "express";
 import env from "./config/env.js";
 import morgan from "morgan";
 import { globalErrorHandler } from "./shared/middlewares/global.js";

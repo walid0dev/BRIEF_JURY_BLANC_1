@@ -7,7 +7,8 @@ const router = Router();
 router.get("/me", requireToken, authenticate, authController.profile);
 router.post("/register", validateBody(userCreateSchema), authController.register);
 router.post("/login", validateBody(userLoginSchema), authController.login);
-var routes_default = router;
-export {
-  routes_default as default
-};
+
+
+export default router
+
+

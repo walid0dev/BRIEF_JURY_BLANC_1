@@ -17,10 +17,8 @@ const login = catchAsync(async (req, res) => {
   const { token, user } = await authService.login(userData);
   sendResponse(res, 200, { user, token });
 });
-var controllers_default = { register, login, profile };
-export {
-  controllers_default as default,
+export default {
   login,
   profile,
-  register
+  register,
 };

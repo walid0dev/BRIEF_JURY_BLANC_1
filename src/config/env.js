@@ -21,7 +21,4 @@ function loadEnv() {
   return value;
 }
 const env = loadEnv();
-var env_default = env;
-export {
-  env_default as default
-};
+export default env

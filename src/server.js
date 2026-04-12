@@ -20,10 +20,10 @@ server.use("/api/invoices", invoiceRoutes);
 server.use("/api/payments", paymentRoutes);
 server.use("/api/admin", adminRoutes);
 
-server.get("/api/health", (_, res) => {
+server.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
-server.use((_, __, next) => {
+server.use((req, res, next) => {
   next(new NotFoundError("Route not found"));
 });
 server.use(globalErrorHandler);

@@ -1,20 +1,19 @@
-import catchAsync from "../../utils/catchAsync.js";
 import { sendResponse } from "../../utils/response.js";
 import authService from "./service.js";
-const profile = catchAsync(async (req, res) => {
+const profile = async (req, res) => {
   const { id, name, role } = req.user;
   sendResponse(res, 200, { id, name, role }, "current user");
-});
-const register = catchAsync(async (req, res) => {
+};
+const register = async (req, res) => {
   const userData = req.body;
   const created = await authService.register(userData);
   sendResponse(res, 201, created, "user created successfully");
-});
-const login = catchAsync(async (req, res) => {
+};
+const login = async (req, res) => {
   const userData = req.body;
   const { token, user } = await authService.login(userData);
   sendResponse(res, 200, { user, token });
-});
+};
 export default {
   login,
   profile,

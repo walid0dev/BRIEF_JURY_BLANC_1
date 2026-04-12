@@ -142,3 +142,4 @@ vite.config.ts.timestamp-*
 *.d.ts
 types
 interfaces
+.agents 

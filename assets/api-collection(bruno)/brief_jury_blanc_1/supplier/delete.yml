@@ -1,0 +1,20 @@
+info:
+  name: delete supplier
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: "{{URL}}{{supplier_id}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: supplier_id
+      value: 69d61450050361bf9e9b0a31
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

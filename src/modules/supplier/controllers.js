@@ -43,7 +43,12 @@ const createSupplier = catchAsync(async (req, res) => {
     const supplier = await supplierService.createSupplier(supplierData);
     if(!supplier) throw new BadRequestError("Failed to create supplier");
     sendResponse(res, 201, supplierService.toSafeDocument(supplier), "Supplier created successfully");
+});
 
+const getSupplierStats = catchAsync(async (req, res) => {
+  const supplierId = req.params.id;
+  const stats = await supplierService.getSupplierStats(supplierId, req.user.id);
+  sendResponse(res, 200, stats);
 });
 
 export default {
@@ -51,5 +56,6 @@ export default {
   getSupplierById,
   updateSupplier,
   deleteSupplier,
-  createSupplier
+  createSupplier,
+  getSupplierStats
 };

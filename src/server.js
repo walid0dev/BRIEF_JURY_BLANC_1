@@ -9,6 +9,7 @@ import supplierRoutes from "./modules/supplier/routes.js";
 import invoiceRoutes from "./modules/invoice/routes.js";
 import paymentRoutes from "./modules/payment/routes.js";
 import adminRoutes from "./modules/admin/routes.js";
+import dashboardRoutes from "./modules/dashboard/routes.js";
 const server = express();
 if (env.NODE_ENV === "development") {
   server.use(morgan("dev"));
@@ -19,6 +20,7 @@ server.use("/api/suppliers", supplierRoutes);
 server.use("/api/invoices", invoiceRoutes);
 server.use("/api/payments", paymentRoutes);
 server.use("/api/admin", adminRoutes);
+server.use("/api/dashboard", dashboardRoutes);
 
 server.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });

@@ -1,5 +1,13 @@
 # Supplier Invoice API - brief jury blanc #1
 
+## API endpoint: Dashboard
+
+`GET /api/dashboard`
+
+- **Auth:** Bearer token required.
+- **Description:** Returns the connected client's global financial summary.
+- **Response fields:** `totalSuppliers`, `totalInvoices`, `totalAmount`, `totalPaid`, `totalRemaining`, `overdueCount`, `overdueAmount`, `invoicesByStatus`, `topSuppliers`.
+
 
 # Diagrams
 ## Class

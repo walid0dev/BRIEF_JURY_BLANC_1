@@ -26,10 +26,23 @@ const updateInvoice = async (id, data) => {
     return invoice;
 };
 
-const getInvoices = async (userId) => {
+const getInvoices = async (userId, filters = {}) => {
+    const { supplierId, status, page = 1, limit = 15 } = filters;
+    const match = { userId: new Types.ObjectId(userId) };
+
+    if (supplierId) {
+        match.supplierId = new Types.ObjectId(supplierId);
+    }
+
+    if (status) {
+        match.status = status;
+    }
+
+    const skip = (page - 1) * limit;
+
     const invoices = await Invoice
         .aggregate([
-            { $match: { userId: new Types.ObjectId(userId) } },
+            { $match: match },
             {
                 $lookup: {
                     from: "payments",
@@ -56,7 +69,9 @@ const getInvoices = async (userId) => {
                     }
                 }
             },
-            { $project: { supplier: 0, payments: 0 } } 
+            { $project: { supplier: 0, payments: 0 } },
+            { $skip: skip },
+            { $limit: limit },
         ])
         .exec();
     return invoices;

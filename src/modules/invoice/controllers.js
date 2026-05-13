@@ -1,7 +1,7 @@
 import { sendResponse } from "../../utils/response.js";
 import invoiceService from "./service.js";
 const getInvoices = async (req, res) => {
-  const invoices = await invoiceService.getInvoices(req.user.id);
+  const invoices = await invoiceService.getInvoices(req.user.id, req.query);
   sendResponse(res, 200, { invoices }, "Invoices retrieved successfully");
 };
 
@@ -32,4 +32,3 @@ export default {
   updateInvoice,
   deleteInvoice
 };
-

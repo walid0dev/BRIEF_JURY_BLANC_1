@@ -182,6 +182,6 @@ Includes invoice fields plus:
 
 ## Frontend notes
 
-- `GET /api/invoices` validates query filters but currently returns all current-user invoices regardless of query values.
+- `GET /api/invoices` applies `supplierId`, `status`, `page`, and `limit` query filters.
 - `POST /api/invoices/:id/payments`: `invoiceId` in body is not required from frontend (path `:id` is used).
 - Most protected endpoints return `401` when token is missing/invalid, `422` for validation errors, and `404` for missing resources.

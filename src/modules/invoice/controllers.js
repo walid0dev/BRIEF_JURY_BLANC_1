@@ -11,7 +11,7 @@ const createInvoice = async (req, res) => {
 };
 
 const getInvoice = async (req, res) => {
-  const invoice = await invoiceService.findById(req.params.id);
+  const invoice = await invoiceService.findInvoiceDetails(req.params.id);
   sendResponse(res, 200, { invoice }, "Invoice retrieved successfully");
 };
 

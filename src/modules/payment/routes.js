@@ -6,15 +6,17 @@ import {
 import { createPaymentSchema } from "./schemas.js";
 import { objectIdParamSchema } from "../../utils/validators.js";
 import paymentController from "./controllers.js";
+import { authenticate,requireToken } from "../../shared/middlewares/auth.js";
 const router = Router();
+router.use(requireToken, authenticate);
 router.post(
-  "/:id/payments",
+  "/:id",
   validateParams(objectIdParamSchema),
   validateBody(createPaymentSchema),
   paymentController.createPayment,
 );
 router.get(
-  "/:id/payments",
+  "/:id",
   validateParams(objectIdParamSchema),
   paymentController.getInvoicePayments,
 );

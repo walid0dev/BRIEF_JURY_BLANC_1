@@ -8,6 +8,54 @@ const findById = async (id) => {
     if (!invoice) throw new NotFoundError("Invoice not found");
     return invoice;
 };
+const findInvoiceDetails = async (id) => {
+    const invoice = await Invoice.aggregate([
+        {
+            $match: {
+                _id: new Types.ObjectId(id)
+            }
+        },
+        {
+            $lookup: {
+                from: "payments",          // Nom de ta collection de paiements en BD
+                localField: "_id",         // L'id de la facture
+                foreignField: "invoiceId", // Le champ dans le modèle Payment
+                as: "payments"             // Sera injecté sous forme de tableau 'payments'
+            }
+        },
+        {
+            $lookup: {
+                from: "suppliers",
+                localField: "supplierId",
+                foreignField: "_id",
+                as: "supplier"
+            }
+        },
+        
+        {
+            $unwind: {
+                path: "$supplier",
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $addFields: {
+                supplierName: "$supplier.name"
+            }
+        },
+        {
+            $project: {
+                supplier: 0
+            }
+        }
+    ]);
+
+    if (!invoice.length) {
+        throw new NotFoundError("Invoice not found");
+    }
+
+    return invoice[0];
+};
 
 const createInvoice = async (userId, data) => {
     const { supplierId } = data;
@@ -94,4 +142,5 @@ export default {
     findById,
     updateInvoice,
     deleteInvoice,
+    findInvoiceDetails
 };
